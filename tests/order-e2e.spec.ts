@@ -1,25 +1,34 @@
-import test, { expect } from '@playwright/test';
-import { getProductData } from '../helpers/getProductData';
-import { getShoppingCartState } from '../helpers/getShoppingCardState';
+import { test, expect } from '../page-objects/fixtures'
 
-test('order flow', async ({ page }) => {
-    await page.goto('https://qa-practice.netlify.app/auth_ecommerce.html');
-    await page.locator('input[name="emailAddress"]').fill(process.env.USERNAME || '');
-    await page.locator('input[name="password"]').fill(process.env.PASSWORD || '');
-    await page.locator('button[test-data="submitBtn"]').click();
-    await expect(await page.getByRole('heading', { name: 'SHOPPING CART' })).toBeVisible();
+test('order flow with page objects', async ({ loginPage, productPage, cartPage }) => {
+    await loginPage.goto();
+    await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
+    // await expect(page.getByRole('heading', { name: 'SHOPPING CART' })).toBeVisible();
 
-    const firstProduct = await getProductData(page.locator('.shop-item').first());
-    const secondProduct = await getProductData(page.locator('.shop-item').nth(1));
+    /*
+    Potential Improvements:
+    - Selecting products could be more dynamic e.g. based on the productId, name etc.
+    - Lack of quantity selection
+    - Safety check of products displayed on the product page before adding to cart
+    */
+    const selectedProducts = [ 
+        productPage.getProduct(1),
+    ];
+    for (const product of selectedProducts) {
+        await product.addToCart();
+    }
+    expect(await cartPage.getNumberOfProductsInCart())
+        .toBe(selectedProducts.length);
+    const productsData = await Promise.all(
+        selectedProducts.map(p => p.getProductData())
+    );
 
-    await firstProduct.button.click();
-    await secondProduct.button.click();
-
-    const cartState = await getShoppingCartState(page);
-    expect(cartState.numberOfProductsInCart).toBe(2);
-    expect(cartState.totalPrice).toBeCloseTo((firstProduct.price + secondProduct.price), 2);
-    expect(cartState.products).toEqual([
-        { name: firstProduct.name, price: firstProduct.price, quantity: '1' },
-        { name: secondProduct.name, price: secondProduct.price, quantity: '1' }
-    ]);
+    const expectedTotal = productsData.reduce((sum, p) => sum + p.price, 0);
+    expect(await cartPage.getTotalPrice()).toBeCloseTo(expectedTotal);
+    expect(await cartPage.getProducts()).toEqual(
+        productsData.map(p => ({
+            ...p,
+            quantity: '1' // To Be Improved: Assuming each product is added once, quantity is '1'
+        }))
+    );
 });

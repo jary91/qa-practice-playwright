@@ -1,6 +1,5 @@
 import { defineConfig } from '@playwright/test';
-
-const dotenv = require('dotenv');
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
