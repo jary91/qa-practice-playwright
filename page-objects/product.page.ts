@@ -53,3 +53,5 @@ class ProductItem {
         await this.locators.addToCartButton.click();
     }
 }
+
+export default ProductPage;

@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 class LoginPage {
     private readonly locators = {
@@ -13,6 +13,10 @@ class LoginPage {
     async goto() {
         await this.page.goto('/auth_ecommerce.html');
     }
+    async isLoaded() {
+        expect(await this.locators.usernameInput).toBeVisible();
+    }
+    
     async login(username: string, password: string) {
         await this.locators.usernameInput.fill(username);
         await this.locators.passwordInput.fill(password);
