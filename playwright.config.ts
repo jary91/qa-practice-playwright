@@ -6,6 +6,10 @@ dotenv.config();
 export default defineConfig({
   testDir: 'tests',
   timeout: 30_000,
-  use: { headless: true },
-  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
-});
+  use: { 
+    headless: true,
+    baseURL: process.env.BASE_URL
+},
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],    
+  }
+);

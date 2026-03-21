@@ -1,7 +1,7 @@
 import {test as base} from '@playwright/test';
-import CartPage from './cart-page';
-import LoginPage from './login-page';
-import { ProductPage } from './product-page';
+import CartPage from './cart.page';
+import LoginPage from './login.page';
+import { ProductPage } from './product.page';
 
 type MyFixtures = {
     cartPage: CartPage,
