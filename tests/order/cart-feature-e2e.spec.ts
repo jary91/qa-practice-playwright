@@ -1,9 +1,9 @@
 import { test, expect } from '../../page-objects/order-pages/fixtures'
 
 test('Checking cart update on adding a product one by one', async ({ loginPage, productPage, cartPage, submitOrderPage }) => {
-    await loginPage.goto();
-    await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
-    await productPage.isLoaded()
+    // await loginPage.goto();
+    // await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
+    // await productPage.isLoaded()
 
     // First selection
     const selectedFirstProduct = await productPage.getProduct(0)

@@ -8,3 +8,6 @@ node_modules/
 # Playwright test report directory
 playwright-report/
 test-results/
+
+# Playwright storage state file
+auth/login.json

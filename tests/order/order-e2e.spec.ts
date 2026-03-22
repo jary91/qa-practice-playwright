@@ -2,9 +2,9 @@ import { test, expect } from '../../page-objects/order-pages/fixtures'
 import { defaultAddressData } from '../../test-data/shipping-details';
 
 test('E2E order flow', async ({ loginPage, productPage, cartPage, submitOrderPage }) => {
-    await loginPage.goto();
-    await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
-    await productPage.isLoaded()
+    // await loginPage.goto();
+    // await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
+    // await productPage.isLoaded()
    
     /*
     Potential Improvements:
