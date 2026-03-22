@@ -13,8 +13,8 @@ export class ProductPage {
 
     getFirstNProducts(n: number): ProductItem[] {
         return Array.from({ length: n }, (_, i) => this.getProduct(i))
-    }
-    async addToCart(products: ProductItem[]) {
+    } 
+    async addManyToCart(products: ProductItem[]) {
         for(const item of products ){
             await item.addToCart()
         }
