@@ -4,6 +4,11 @@
   "type": "module",
   "scripts": {
     "test": "npx playwright test",
+    "test:order": "npx playwright test --project=\"Order flow tests\"",
+    "test:upload": "npx playwright test --project=\"Upload flow tests\"",
+    "test:order:ui": "npx playwright test --project=\"Order flow tests\" --ui",
+    "test:upload:ui": "npx playwright test --project=\"Upload flow tests\" --ui",
+    "test:ui": "npx playwright test --ui",
     "test:tsc": "npx tsc --noEmit",
     "pretest": "npm run test:tsc",
     "test:report": "npx playwright show-report"
