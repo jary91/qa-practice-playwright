@@ -1,8 +1,7 @@
-import { test, expect } from '../page-objects/fixtures'
-import LoginPage from '../page-objects/login.page';
-import { defaultAddressData } from '../test-data/shipping-details';
+import { test, expect } from '../../page-objects/order-pages/fixtures'
+import { defaultAddressData } from '../../test-data/shipping-details';
 
-test('order flow with page objects', async ({ loginPage, productPage, cartPage, submitOrderPage }) => {
+test('E2E order flow', async ({ loginPage, productPage, cartPage, submitOrderPage }) => {
     await loginPage.goto();
     await loginPage.login(process.env.USERNAME!, process.env.PASSWORD!);
     await productPage.isLoaded()
@@ -15,7 +14,7 @@ test('order flow with page objects', async ({ loginPage, productPage, cartPage, 
     */
 
     const selectedProducts = await productPage.getFirstNProducts(3)
-    await productPage.addToCart(selectedProducts)
+    await productPage.addManyToCart(selectedProducts)
     const productsData = await productPage.getProductsData(selectedProducts)
 
     const expectedTotal = productsData.reduce((sum, p) => sum + p.price, 0);
