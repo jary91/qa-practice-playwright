@@ -35,8 +35,7 @@ export class ShippingDetailsPage {
     // I decided to keep the summary page here as there are only two elements to use
     async assertOrderSubmission(expectedTotalPrice: number, expectedAddress: string, expectedCity: string, expectedCountry: string) {
         const successText = this.page.getByText(`Congrats! Your order of $${expectedTotalPrice}`);
-        const expectedSummaryText = `Congrats! Your order of $${expectedTotalPrice} has been registered and will be shipped to ${expectedAddress}, ${expectedCity} - ${expectedCountry}.`;
-        await expect(successText).toHaveText(expectedSummaryText);
+        const expectedSummaryText = `Congrats! Your order of $${expectedTotalPrice} has been registered and will be shipped to ${expectedAddress}, ${expectedCity} - ${expectedCountry}.`;         await expect(successText).toHaveText(expectedSummaryText);
     }
 
     async logOut() {
