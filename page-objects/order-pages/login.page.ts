@@ -14,7 +14,7 @@ class LoginPage {
         await this.page.goto('/auth_ecommerce.html');
     }
     async isLoaded() {
-        expect(await this.locators.usernameInput).toBeVisible();
+        await expect(this.locators.usernameInput).toBeVisible();
     }
     
     async login(username: string, password: string) {
