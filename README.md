@@ -89,7 +89,7 @@ npm run test:tsc
 
 ## Test suites
 
-### Order flow
+### Order E2E flow
 
 `tests/order/order-e2e.spec.ts`
 - Uses custom fixtures from `page-objects/order-pages/fixtures.ts`
@@ -100,6 +100,26 @@ npm run test:tsc
   - checkout page fill shipping details (from `test-data/shipping-details.ts`)
   - submit order + assert confirmation
   - logout and login page validation
+
+### Cart Feature tests
+`tests/order/cart-feature-e2e.spec.ts`
+- Uses custom fixtures from `page-objects/order-pages/fixtures.ts`
+- Tests:
+    - login - as beforeEach
+
+    #### Cart Update test
+    - select first product
+    - verify if the cart is updated by the correct data
+    - select second product
+    - verify if the cart is again properly updated
+
+    #### Adding the same product validation check
+    - select first product
+    - verify if the cart is updated by the correct data
+    - listening for browser "dialog" event and validate the alert message
+    - trying to add the same product
+    - listener checks the validation
+    - verify if the cart is not changed
 
 ### Upload flow
 
