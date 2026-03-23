@@ -150,6 +150,27 @@ npm run test:report
 
 ---
 
+## GitHub Actions CI
+
+Workflow file: `.github/workflows/ci.yml`
+
+- triggers:
+  - `push` to `main`
+  - `pull_request` on `main`
+  - manual run (`workflow_dispatch`)
+- steps:
+  - checkout source
+  - setup Node.js 18
+  - `npm ci`
+  - `npx playwright install --with-deps`
+  - `npm test` (headless, as configured in `playwright.config.ts`)
+  - upload `playwright-report` artifact (always run, even if tests fail)
+- behavior:
+  - job is blocked (fails) on test failure
+  - open / on-demand execution is supported through manual dispatch
+
+---
+
 ## Notes for reviewer
 
 - The project is structured around explicit fixture extension in page-object dirs (`test.extend`), which keeps test file dependencies clear and shared setup localized.
