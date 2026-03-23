@@ -26,6 +26,13 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Debug BASE_URL
+        run: echo "BASE_URL=${BASE_URL}"
+        env:
+          BASE_URL: ${{ secrets.TEST_BASE_URL }}
+          PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          BASE_URL: ${{ secrets.TEST_BASE_URL }}
+
       - name: Run tests (headless)
         run: npm test
         continue-on-error: false
